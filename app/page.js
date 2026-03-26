@@ -1,3 +1,5 @@
+"use client"
+
 export default function Home() {
   return (
     <>
@@ -19,10 +21,10 @@ function HeroSection() {
         <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'1.5rem'}}>
           <div style={{width:'8px',height:'8px',borderRadius:'50%',background:'var(--sage)'}}/>
           <span style={{fontSize:'13px',color:'var(--sage)',fontWeight:500,letterSpacing:'0.06em',textTransform:'uppercase'}}>Irvine · Orange County</span>
-          <span style={{fontFamily:'Noto Serif SC,serif',fontSize:'13px',color:'var(--sage)',opacity:.8}}>爱湾 · 橙县</span>
+          <span style={{fontFamily:'Noto Serif SC,serif',fontSize:'13px',color:'var(--sage)',opacity:.8}}>橙县</span>
         </div>
         <h1 style={{fontSize:'52px',fontWeight:400,lineHeight:1.18,marginBottom:'0.5rem'}}>
-          Care as warm as<br/><em style={{fontStyle:'italic',color:'var(--sage)'}}>an Irvine morning</em>
+          Care as warm as<br/><em style={{fontStyle:'italic',color:'var(--sage)'}}>a California morning</em>
         </h1>
         <div style={{fontFamily:'Noto Serif SC,serif',fontSize:'22px',color:'var(--muted)',marginBottom:'1.5rem',lineHeight:1.6}}>温暖如晨光，关爱您的长辈</div>
         <p style={{fontSize:'16px',color:'var(--muted)',maxWidth:'460px',lineHeight:1.75,marginBottom:'2.5rem'}}>
@@ -104,7 +106,7 @@ function HeroSection() {
 function TrustBar() {
   const items = [
     {num:'4.9 ★', en:'Average rating', zh:'平均评分'},
-    {num:'普通话 · 粤语', en:'Mandarin & Cantonese', zh:'双语服务'},
+    {num:'中文 · 粤语', en:'Mandarin & Cantonese', zh:'双语服务'},
     {num:'100%', en:'Background checked', zh:'全员背景审查'},
     {num:'Irvine · OC', en:'Local & community-rooted', zh:'本地社区服务'},
   ]
@@ -129,7 +131,7 @@ function WhoWeServe() {
           <div className="section-eyebrow"><span className="en">Who We Serve</span><span className="zh-sm">我们服务的群体</span></div>
           <h2 style={{fontSize:'36px',marginBottom:'1rem'}}>Built for seniors who call Irvine home</h2>
           <p style={{fontSize:'16px',color:'var(--muted)',lineHeight:1.75,marginBottom:'0.5rem'}}>Orange County is home to one of California's fastest-growing Chinese-speaking senior populations. EverGrace was built specifically for them — care in their language, honoring their culture.</p>
-          <p style={{fontFamily:'Noto Serif SC,serif',fontSize:'14px',color:'var(--sage)',marginBottom:'2rem'}}>专为橙县华裔长辈打造，普通话和粤语服务，理解您的文化与需求。</p>
+          <p style={{fontFamily:'Noto Serif SC,serif',fontSize:'14px',color:'var(--sage)',marginBottom:'2rem'}}>专为橙县华裔长辈打造，中文服务，理解您的文化与需求。</p>
           {[
             {title:'Chinese-speaking seniors', zh:'华语长辈', desc:'Mandarin and Cantonese fluent companions who share your cultural background.'},
             {title:'Families living far away', zh:'异地子女', desc:'Peace of mind for adult children who can\'t be there every day.'},
@@ -202,20 +204,36 @@ function ServicesPreview() {
         </div>
         <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1.25rem'}}>
           {services.map(s=>(
-            <div key={s.title} style={{background:'white',border:'1px solid var(--border)',borderRadius:'14px',padding:'1.5rem',transition:'box-shadow .2s,transform .2s',cursor:'default'}}
-              onMouseOver={e=>{e.currentTarget.style.boxShadow='0 6px 24px rgba(46,82,72,0.12)';e.currentTarget.style.transform='translateY(-3px)'}}
-              onMouseOut={e=>{e.currentTarget.style.boxShadow='none';e.currentTarget.style.transform='translateY(0)'}}>
-              <div style={{width:'44px',height:'44px',borderRadius:'11px',background:'var(--sage-lt)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'1rem'}}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--sage-dk)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 13c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z"/></svg>
-              </div>
-              <div style={{fontSize:'15px',fontWeight:500,marginBottom:'3px'}}>{s.title}</div>
-              <div style={{fontFamily:'Noto Serif SC,serif',fontSize:'12px',color:'var(--sage)',marginBottom:'8px'}}>{s.zh}</div>
-              <p style={{fontSize:'13px',color:'var(--muted)',lineHeight:1.6}}>{s.desc}</p>
-            </div>
+            <ServiceCard key={s.title} service={s} />
           ))}
         </div>
       </div>
     </section>
+  )
+}
+
+function ServiceCard({ service: s }) {
+  const handleMouseOver = (e) => {
+    e.currentTarget.style.boxShadow = '0 6px 24px rgba(46,82,72,0.12)'
+    e.currentTarget.style.transform = 'translateY(-3px)'
+  }
+  const handleMouseOut = (e) => {
+    e.currentTarget.style.boxShadow = 'none'
+    e.currentTarget.style.transform = 'translateY(0)'
+  }
+  return (
+    <div
+      style={{background:'white',border:'1px solid var(--border)',borderRadius:'14px',padding:'1.5rem',transition:'box-shadow .2s,transform .2s',cursor:'default'}}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      <div style={{width:'44px',height:'44px',borderRadius:'11px',background:'var(--sage-lt)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'1rem'}}>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--sage-dk)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 13c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z"/></svg>
+      </div>
+      <div style={{fontSize:'15px',fontWeight:500,marginBottom:'3px'}}>{s.title}</div>
+      <div style={{fontFamily:'Noto Serif SC,serif',fontSize:'12px',color:'var(--sage)',marginBottom:'8px'}}>{s.zh}</div>
+      <p style={{fontSize:'13px',color:'var(--muted)',lineHeight:1.6}}>{s.desc}</p>
+    </div>
   )
 }
 
